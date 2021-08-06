@@ -30,6 +30,7 @@ const useLocalStorage = (key, initialVlaues) => {
 // Build out the logic needed for a form custom hook (see the useForm.js file)
 // and replace the necessary stateful logic from CheckoutForm with the hook
 
+//CHECK THIS! 2!!!!
 const CheckoutForm = (initialValues) => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [values, setValues] = useState(initialValues);
