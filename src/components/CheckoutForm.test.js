@@ -8,6 +8,7 @@ test("renders PlantForm component without crashing", () => {
 });
 describe("PlantForm should submit a new plant array and display the array on the page", () => {
     test("name input should accept text", async () => {
+        //LOOK AT THIS 
         // Arrange
         render(<PlantForm />);
         // Act
