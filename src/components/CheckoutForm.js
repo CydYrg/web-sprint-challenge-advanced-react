@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const initialValue = {
+const initialValues = {
   firstName: "",
   lastName: "",
   address: "",
@@ -9,22 +9,56 @@ const initialValue = {
   zip: "",
 };
 
+const useLocalStorage = (key, initialVlaues) => {
+  const[value, setValue] = useState(() => {
+    if (localStorage.getItem(key)) {
+      return(JSON.parse(localStorage.getItem(key)));
+    } else {
+      localStorage.setItem(key, JSON.stringify(initialValues));
+      return initialValues;
+    }
+  });
+
+  const setStoredValue = (value) => {
+    localStorage.setItem(key,JSON.stringify(value));
+    setValue(value);
+  }
+
+  return ([value, setStoredValue]);
+}
 // This form should be handled by a "useForm" custom hook
 // Build out the logic needed for a form custom hook (see the useForm.js file)
 // and replace the necessary stateful logic from CheckoutForm with the hook
 
-const CheckoutForm = (props) => {
+const CheckoutForm = (initialValues) => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [values, setValues] = useState(initialValue);
+  const [values, setValues] = useState(initialValues);
 
   const handleChanges = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    setValues({ 
+      ...values, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowSuccessMessage(true);
   };
+
+  return ([values, handleChanges, handleSubmit ]);
+}
+
+const initialState = {
+  name: "",
+  id: '',
+  scientificName: "",
+  difficulty: "",
+  light: "",
+  img:"",
+  sizes: [""],
+  watering: '',
+  description:"",
+  price: '',
+}
 
   return (
     <>
@@ -88,6 +122,6 @@ const CheckoutForm = (props) => {
       )}
     </>
   );
-};
+
 
 export default CheckoutForm;
